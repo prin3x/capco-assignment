@@ -35,3 +35,10 @@ yarn
 ```
 yarn test
 ```
+
+
+## API Docs
+You can find auto generate swagger api document with path /docs
+
+
+Cheers for the test!
