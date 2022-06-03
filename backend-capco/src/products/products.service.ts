@@ -145,7 +145,7 @@ export class ProductsService {
       page: +q?.page || 1,
       limit: +q?.limit ? (+q?.limit > 100 ? 100 : +q?.limit) : 10,
       category: q?.category,
-      search: q?.search || '',
+      search: q?.search?.toLowerCase() || '',
     };
 
     return rtn;
