@@ -1,0 +1,26 @@
+{
+  "name": "capco-assignment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/prin3x/capco-assignment.git",
+  "author": "Sarut",
+  "license": "MIT",
+  "scripts": {
+    "install": "cd backend-capco && yarn && cd ../frontend-capco && yarn",
+    "server": "cd backend-capco && yarn start:dev",
+    "client": "cd frontend-capco && yarn start --prefix client",
+    "dev": "concurrently \"yarn run server\" \"sleep 3 && yarn run client\"",
+    "build-server": "cd backend-capco && yarn build",
+    "build-client": "cd frontend-capco && yarn build --prefix client",
+    "build": "concurrently \"yarn run build-server\" \"yarn run build-client\"",
+    "test-server": "cd backend-capco && yarn test",
+    "test-client": "cd frontend-capco && yarn test",
+    "test": "concurrently \"yarn run test-server\" \"yarn run test-client\"",
+    "start-server": "cd backend-capco && yarn start",
+    "start-client": "cd frontend-capco && yarn start --prefix client",
+    "start": "concurrently \"yarn run start-server\" \"yarn run start-client\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
