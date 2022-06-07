@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../context/SearchContext";
 
 function Navbar() {
@@ -31,14 +31,12 @@ function Navbar() {
       nav.href === pathname ? (nav.current = true) : (nav.current = false);
       return nav;
     });
-    navigate(pathname);
     setNavigationState(nextState);
   };
   useEffect(() => {
     if (location.pathname === "/") {
       return navigate("/news");
     }
-    navigate(location.pathname);
     onChangeCategory(location.pathname);
   }, [location.pathname]);
 
@@ -60,13 +58,17 @@ function Navbar() {
               </div>
               <div className=" flex items-center justify-between sm:items-stretch sm:justify-between w-full">
                 <div className="flex-shrink-0 flex items-center">
-                  <div
-                    className="text-sm sm:text-4xl font-party text-white cursor-pointer ml-12 md:ml-0 font-bold"
-                    onClick={() => onChangeCategory("/news")}
-                    role="banner"
-                  >
-                    UNBRANDED ORG.
-                  </div>
+                  <Link to="/news" role="logo">
+                    <div
+                      className="text-sm sm:text-4xl font-party text-white cursor-pointer ml-12 md:ml-0 font-bold"
+                      onClick={() => {
+                        onChangeCategory("/news");
+                      }}
+                      role="banner"
+                    >
+                      UNBRANDED ORG.
+                    </div>
+                  </Link>
                 </div>
                 <div className="relative  md:hidden">
                   <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -99,17 +101,19 @@ function Navbar() {
                         key={item.name}
                         onClick={() => onChangeCategory(item.href)}
                       >
-                        <div
-                          role="link"
-                          className={`${
-                            item.current
-                              ? "bg-amber-400 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                          }
+                        <Link to={item.href}>
+                          <div
+                            data-testid={`${item.name}-link`}
+                            className={`${
+                              item.current
+                                ? "bg-amber-400 text-white"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                            }
                           'px-3 py-2 rounded-md text-sm font-medium cursor-pointer w-20 text-center ease-in-out duration-100`}
-                        >
-                          {item.name}
-                        </div>
+                          >
+                            {item.name}
+                          </div>
+                        </Link>
                       </div>
                     ))}
                     <div className="relative">
@@ -129,9 +133,11 @@ function Navbar() {
                           ></path>
                         </svg>
                       </div>
-{                      // eslint-disable-next-line jsx-a11y/no-redundant-roles
-}                      <input
-                        role='textbox'
+                      {
+                        // eslint-disable-next-line jsx-a11y/no-redundant-roles
+                      }{" "}
+                      <input
+                        role="textbox"
                         onChange={debounce(onSearch)}
                         type="search"
                         className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

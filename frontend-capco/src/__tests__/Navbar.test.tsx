@@ -41,9 +41,11 @@ test("should switch color on click", () => {
 
   expect(navItems).toHaveLength(4);
 
+  const navItemChild = screen.getAllByTestId(/-link$/);
+
   navItems.forEach((_, idx) => {
     userEvent.click(navItems[idx]);
-    expect(navItems[idx].className).toContain(activeBG);
+    expect(navItemChild[idx]?.className).toContain(activeBG);
   });
 });
 
